@@ -17,7 +17,7 @@ const mailer = new MailClient(
 
 // registering CORS options
 const corsOptions = {
-    origin: "http://localhost:3000",//"https://wizibleweb.com"
+    origin: "https://wizibleweb.com",
     optionsSuccessStatus: 200
 }
 
