@@ -1,6 +1,13 @@
 const mailer = require("nodemailer");
 
 class FieldParser{
+    companyNameChecker(company_name){
+        // checking if the company_name is not blank
+        let company_name_empty = this.isFieldBlank(company_name);
+        if(company_name_empty) return [false, "Company name must have 3 characters"];
+        return [true];
+    }
+
     first_name_checker(
         name_here
     ){
@@ -48,6 +55,14 @@ class FieldParser{
         return [true]
     }
 
+    isFieldBlank(field){
+        let messer = String(field);
+        while (messer.includes(" ")){
+            messer = messer.replace(" ", "")
+        }
+        return (messer.length <= 0) ? true : false;
+    }
+
     isMessageBlank(message){
         console.log("checking for message blankness");
         let messer = String(message);
@@ -72,11 +87,14 @@ class FieldParser{
 class MailClient{
     constructor(
         ownerEmail,
-        ownerEmailPassword
+        ownerEmailPassword,
+        mailService,
+        app_name
     ){
+        this.appName = app_name;
         this.ownerEmail = ownerEmail
         this.transporter = mailer.createTransport({
-            service:"gmail",
+            service:mailService,
             auth:{
                 user: ownerEmail,
                 pass: ownerEmailPassword
@@ -95,7 +113,7 @@ class MailClient{
         await this.transporter.sendMail({
             from:this.ownerEmail,
             to: toemail,
-            subject: `Automated from WIZIBLE-WEB`,
+            subject: `Automated from ${this.appName}`,
             text:`
                 FirstName -> ${fname}
                 SecondName -> ${sname}

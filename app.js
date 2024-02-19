@@ -12,12 +12,13 @@ require("dotenv").config()
 const mailer = new MailClient(
     process.env.OWNER_EMAIL,
     process.env.OWNER_PASSWORD,
-    process.env.MAIL_SERVICE
+    process.env.MAIL_SERVICE,
+    process.env.APP_NAME
 );
 
 // registering CORS options
 const corsOptions = {
-    origin: "https://wizibleweb.com",
+    origin: "http://localhost:3000",
     optionsSuccessStatus: 200
 }
 
@@ -97,6 +98,13 @@ app.post('/contact', async(req, res) => {
         if (!email_check){
             // detecting errors in if
             Errors.email = "please enter a valid email"
+        }
+
+        console.log("Checking for CompanyName...")
+        let company_name_check = Parser.companyNameChecker(company_name);
+        if(!company_name_check[0]){
+            // detecting errors here
+            Errors.company_name = company_name_check[1];
         }
 
         console.log("Checking Message here...");
