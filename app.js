@@ -18,7 +18,7 @@ const mailer = new MailClient(
 
 // registering CORS options
 const corsOptions = {
-    origin: "http://localhost:3000",
+    origin: "https://cleantify.com",
     optionsSuccessStatus: 200
 }
 
