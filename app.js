@@ -36,6 +36,14 @@ app.use(express.json())
 // using cors here
 app.use(cors(corsOptions))
 
+app.get('/', async(req, res) => {
+    res.json({
+        'status': true,
+        'running': 'success',
+        'system_status': 'ok'
+    })
+})
+
 app.post('/contact', async(req, res) => {
     try{
         let {
