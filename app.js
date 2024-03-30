@@ -54,7 +54,7 @@ app.post('/contact', async(req, res) => {
             message
         } = req.body;
         let capToken = req.headers.authorization;
-        console.log(capToken);
+        if (capToken) console.log("Cap-Token Founded...");
 
         // creating a object of errors
         let Errors = {

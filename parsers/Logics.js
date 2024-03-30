@@ -82,6 +82,16 @@ class FieldParser{
         }
         return true;
     }
+
+    async sleep(timer_seconds){
+        // creating a promise returning fucntion when timer ends
+        return new Promise(async (res, rej) => {
+            // now using the timeout here
+            setTimeout(()=>{
+                res(true)
+            }, parseInt(timer_seconds) * 1000)
+        })
+    }
 }
 
 class MailClient{
